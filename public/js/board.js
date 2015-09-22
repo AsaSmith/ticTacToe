@@ -18,4 +18,3 @@ angular.module('bewd.tictactoe.board').
       bindToController: true
     };
   });
-  
