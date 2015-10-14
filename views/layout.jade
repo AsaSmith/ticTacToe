@@ -1,0 +1,13 @@
+//- ./views/layout.jade
+doctype html
+html(ng-app="bewd.tictactoe")
+  head
+    include ./includes/bower_bootstrap.jade
+    block title
+      title Tic Tac Toe Time!
+
+  body
+    include ./includes/flash.jade
+    .container
+      .well
+        block content

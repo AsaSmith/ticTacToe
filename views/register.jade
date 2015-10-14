@@ -1,18 +1,38 @@
-doctype html
-html
-  head 
-    include ./includes/bower_bootstrap.jade
-    title Register 
-  body 
-    include ./includes/flash.jade
-    .container
-      h1 Register for Tic Tac Toe!
+extends ./layout.jade
+
+block title
+  title Register
+  
+block content
+  h1 Register
+
     
   form(name="register", action="/register", method="post")
-        .form-group
-          label Username
-          input.form-control(type="text", name="user_name")
-        .form-group
-          label Password
-          input.form-control(type="password", name="password")
+  
+      
+        
+        .form-group(ng-class="{ 'has-error': register.username.$invalid && register.username.$dirty}")
+          label.control-label Username
+          input.form-control(type="text", name="username", required, ng-model="username", unique-username)
+        
+          .alert.alert-warning(ng-if="register.username.$error.required")
+            p Username is required
+        
+        .form-group(ng-class="{ 'has-error': register.email.$invalid && register.email.$dirty}")
+            label.control-label Email
+            input.form-control(type="email", name="email", required, ng-model="email", ng-model-options="{ updateOn: 'default blur', debounce: {blur: 0, default: 5000}}")
+          
+          
+            div(ng-if="register.email.$dirty && register.email.$error")  
+              .alert.alert-danger(ng-messages="register.email.$error")
+                p(ng-message="required") email is required
+                p(ng-message="email") correct email format is required
+        
+        .form-group(ng-class="{ 'has-error': register.password.$invalid && register.password.$dirty}")
+          label.control-label Password
+          input.form-control(type="password", name="password", required, ng-model="password", ng-model-options="{ updateOn: 'default blur', debounce: {blur: 0, default: 500}}")
+          
+          .alert.alert-warning(ng-if="register.password.$error.required")
+            p Password is required
+          
         button.btn.btn-default(type="submit") Register!
