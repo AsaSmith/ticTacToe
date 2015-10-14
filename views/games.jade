@@ -1,10 +1,18 @@
 extends ./layout.jade
 
 block title
-  title All the games!
+  title
+    if !title
+      | All the games!
+    else
+      = title
 
 block content
-  h1 All the games!
+  h1
+    if !title
+      | All the games!
+    else
+      = title
   p Existing boards
   ul
     each board in boards
@@ -20,11 +28,8 @@ block content
     div(ng-show="boards.selectedBoard")
       p Game {{ '#' + boards.selectedBoard.id }}
       tic-tac-toe-board(the-board="boards.selectedBoard.board")
-    
+  
   if errors
     p.text-danger= errors.message
   form(name="newGame" method="post" action="/games")
-    .form-group
-      label New Board Config
-      input.form-control(type="text" name="board")
     button.btn.btn-default(type="submit") Create!

@@ -1,20 +1,20 @@
 extends ./layout.jade
-  
-block title
-    title Game ##{board.id}
-  
-block content
-    h1 Game ##{board.id}
-    tic-tac-toe-board(the-board="#{JSON.stringify(board.board)}")
-  
-    form(action='/games/#{board.id}', method="post")
-        .form-group
-          label.control-label New Game State
-          input.form-control(type="text", name="board", value="#{board.board.map(function(b) { return b.join(''); }).join('')}")
-        button.btn.btn-success(type="submit") Update board
 
-    form(action="/games/#{board.id}", method="post")
-      .form-group
-      button.btn.btn-danger(type="submit") Delete
-        
+block title
+  title Game ##{board.id}
+
+block content
+  h1 Game ##{board.id}
+  tic-tac-toe-board(the-board="#{JSON.stringify(board.board)}")
+
+  if currentUser && board.isOpenForJoining()
+    //- render buttons or something
+  else
+    p Game is full
+
+  form(action='/games/#{board.id}', method="post")
+    .form-group
+      label.control-label New Game state
+      input.form-control(type="text", name="board", value="#{board.board.map(function(b) { return b.join(''); }).join('')}")
+    button.btn.btn-success(type="submit") Update board       
     

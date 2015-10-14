@@ -1,17 +1,41 @@
 'use strict';
 module.exports = function(sequelize, DataTypes) {
-  var Users = sequelize.define('Users', {
+  var User = sequelize.define('User', {
     user_name: DataTypes.STRING,
     password: DataTypes.STRING,
     email: DataTypes.STRING
   }, {
     classMethods: {
       associate: function(models) {
-        // associations can be defined here
-        User.hasMany(models.Board, {as: 'XPLAYER', foreignKey: 'xPlayerId'});
-        User.hasMany(models.Board, {as: 'OPLAYER', foreignKey: 'oPlayerId'});
+        User.hasMany(models.Board, { as: 'XPlayer', foreignKey: 'xPlayerId' });
+        User.hasMany(models.Board, { as: 'OPlayer', foreignKey: 'oPlayerId' });
+      }
+    },
+    instanceMethods: {
+      getBoards: function() {
+        return sequelize.Promise.all([
+          (this.XPlayer || this.getXPlayer()),
+          (this.OPlayer || this.getOPlayer())
+        ]).then(function(boards) {
+          return boards.reduce(function(a, b) { return a.concat(b); }, []);
+        })
+      }
+    },
+    scopes: {
+      knownValues: {
+        where: {
+          id: 1
+        }
+      },
+      withBoards: function() {
+        return {
+          include: [
+            { association: User.associations.XPlayer },
+            { association: User.associations.OPlayer }
+          ]
+        }
       }
     }
   });
-  return Users;
+  return User;
 };
