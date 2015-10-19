@@ -15,7 +15,7 @@
                 response.data ? reject() : resolve();
               });
             });
-          };
+          }
         }
       }
     })

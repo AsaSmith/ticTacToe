@@ -38,7 +38,7 @@ app.use(session({
 
 app.use(require('flash')());
 
-//app.use(require('morgan')('dev'));
+// app.use(require('morgan')('dev'));
 
 app.set('view engine', 'jade');
 

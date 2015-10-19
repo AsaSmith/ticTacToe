@@ -1,16 +1,18 @@
+// routes/users.js
 var express = require('express');
 var router = express.Router();
 
-var Users = require('../models').Users;
+var User = require('../models').User;
 
 router.get('/usernameExists', function(req, res) {
-  Users.findOne({ where: { username: req.query.user_name }}).then(function(user) {
-    if (user) {
-      res.json(true);
-    } else {
-      res.json(false);
-    }
-  })
+  User.findOne({ where: { username: req.query.username }})
+    .then(function(user) {
+      if (user) {
+        res.json(true);
+      } else {
+        res.json(false);
+      }
+    });
 });
 
 module.exports = router;
