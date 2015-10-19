@@ -30,6 +30,16 @@ var store = new SequelizeStore({ db: sequelize });
 store.sync();
 
 app.use(cookieParser());
+if (process.env.REDIS_URL) {
+  var RedisStore = require('connect-redis')(session);
+
+  app.use(session({
+    store: new RedisStore({ url: process.env.REDIS_URL }),
+    secret: 'I see undead people',
+    saveUninitialized: false,
+    resave: false
+  }));
+} else {
 app.use(session({
   saveUninitialized: false,
   resave: false,
