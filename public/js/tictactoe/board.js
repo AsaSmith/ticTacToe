@@ -1,19 +1,19 @@
 angular.module('bewd.tictactoe.board', []);
 
 angular.module('bewd.tictactoe.board').
-  controller('BoardCtrl', function() {
+  controller('boardCtrl', function() {
     this.makeYourMove = function makeYourMove() {
-      this.theBoard[2][2] = 'Y';
+      this.theboard[2][2] = 'Y';
     };
   }).
-  directive('ticTacToeBoard', function() {
+  directive('ticTacToeboard', function() {
     return {
       scope: {
-        theBoard: '='
+        theboard: '='
       },
       restrict: 'E',
       templateUrl: '/public/tmpls/board.html',
-      controller: 'BoardCtrl',
+      controller: 'boardCtrl',
       controllerAs: 'vm',
       bindToController: true
     };
@@ -22,19 +22,19 @@ angular.module('bewd.tictactoe.board').
 angular.module('bewd.tictactoe.board').
   factory('boardService', ['$http', function($http) {
     return {
-      getBoards: function() {
+      getboards: function() {
         return $http.get('/games').
           then(function(response) {
             return response.data;
           });
       },
-      getBoard: function(id) {
+      getboard: function(id) {
         return $http.get('/games/' + id).
           then(function(response) {
             return response.data;
           });
       },
-      updateBoard: function(id, board) {
+      updateboard: function(id, board) {
         return $http.put('/games/' + id, { board: board }).
           then(function(response) {
             return response.data;
@@ -42,33 +42,33 @@ angular.module('bewd.tictactoe.board').
       }
     };
   }]).
-  controller('BoardsController', BoardsController);
+  controller('boardsController', boardsController);
 
-  BoardsController.$inject = ['boardService', '$interval', '$log'];
-  function BoardsController(boardService, $interval, $log) {
+  boardsController.$inject = ['boardService', '$interval', '$log'];
+  function boardsController(boardService, $interval, $log) {
     var vm = this;
 
     var boardRefresher;
-    vm.selectBoard = function selectBoard(board) {
-      vm.selectedBoard = board;
+    vm.selectboard = function selectboard(board) {
+      vm.selectedboard = board;
 
       if (boardRefresher) {
         $interval.cancel(boardRefresher);
       }
       boardRefresher = $interval(function() {
-        boardService.getBoard(board.id).then(function(b) {
-          vm.selectedBoard = b;
+        boardService.getboard(board.id).then(function(b) {
+          vm.selectedboard = b;
         })
       }, 1000);
     };
 
-    function loadBoards() {
-      boardService.getBoards().then(function(boards) {
-        $log.debug("Boards response is ", boards);
+    function loadboards() {
+      boardService.getboards().then(function(boards) {
+        $log.debug("boards response is ", boards);
         vm.boards = boards;
       });
     }
 
-    loadBoards();
-    $interval(loadBoards, 10000);
+    loadboards();
+    $interval(loadboards, 10000);
   }

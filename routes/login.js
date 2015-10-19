@@ -1,10 +1,10 @@
 var express = require('express');
 var app = express.Router();
 
-var User = require('../models').User;
+var user = require('../models').user;
 
 app.get('/', function(req, res) {
-  if (req.currentUser) {
+  if (req.currentuser) {
     req.flash('info', "Dude. Come on.");
     req.session.save(function() {
       res.redirect('/games')
@@ -15,7 +15,7 @@ app.get('/', function(req, res) {
 });
 
 app.post('/', function(req, res) {
-  User.find({ where: { username: req.body.username }})
+  user.find({ where: { username: req.body.username }})
     .then(function(user) {
       if (user) {
         if (user.password === req.body.password) {
@@ -31,7 +31,7 @@ app.post('/', function(req, res) {
           });
         }
       } else { // user
-        req.flash('warning', 'Username unknown');
+        req.flash('warning', 'username unknown');
         req.session.save(function() {
           res.redirect('/login');
         });

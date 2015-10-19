@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(sequelize, DataTypes) {
-  var Board = sequelize.define('Board', {
+  var board = sequelize.define('board', {
       board: {
           type: DataTypes.STRING,
           get: function() {
@@ -26,8 +26,8 @@ module.exports = function(sequelize, DataTypes) {
   {
     classMethods: {
       associate: function(models) {
-        Board.belongsTo(models.User, { as: 'XPlayer', foreignKey: 'xPlayerId' });
-        Board.belongsTo(models.User, { as: 'OPlayer', foreignKey: 'oPlayerId' });
+        board.belongsTo(models.user, { as: 'XPlayer', foreignKey: 'xPlayerId' });
+        board.belongsTo(models.user, { as: 'OPlayer', foreignKey: 'oPlayerId' });
       }
     },
     instanceMethods: {
@@ -36,11 +36,11 @@ module.exports = function(sequelize, DataTypes) {
       }
     },
     scopes: {
-      withUsers: function() {
+      withusers: function() {
         return {
           include: [
-            { association: Board.associations.XPlayer },
-            { association: Board.associations.OPlayer }
+            { association: board.associations.XPlayer },
+            { association: board.associations.OPlayer }
           ]
         };
       },
@@ -52,7 +52,7 @@ module.exports = function(sequelize, DataTypes) {
           ]
         }
       },
-      forUser: function(u) {
+      foruser: function(u) {
         return {
           where: {
             $or: [
@@ -64,5 +64,5 @@ module.exports = function(sequelize, DataTypes) {
       }
     }
   });
-  return Board;
+  return board;
 };

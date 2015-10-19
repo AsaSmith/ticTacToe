@@ -1,18 +1,18 @@
 'use strict';
 module.exports = function(sequelize, DataTypes) {
-  var User = sequelize.define('User', {
+  var user = sequelize.define('user', {
     username: DataTypes.STRING,
     password: DataTypes.STRING,
     email: DataTypes.STRING
   }, {
     classMethods: {
       associate: function(models) {
-        User.hasMany(models.Board, { as: 'XPlayer', foreignKey: 'xPlayerId' });
-        User.hasMany(models.Board, { as: 'OPlayer', foreignKey: 'oPlayerId' });
+        user.hasMany(models.board, { as: 'XPlayer', foreignKey: 'xPlayerId' });
+        user.hasMany(models.board, { as: 'OPlayer', foreignKey: 'oPlayerId' });
       }
     },
     instanceMethods: {
-      getBoards: function() {
+      getboards: function() {
         return sequelize.Promise.all([
           (this.XPlayer || this.getXPlayer()),
           (this.OPlayer || this.getOPlayer())
@@ -27,15 +27,15 @@ module.exports = function(sequelize, DataTypes) {
           id: 1
         }
       },
-      withBoards: function() {
+      withboards: function() {
         return {
           include: [
-            { association: User.associations.XPlayer },
-            { association: User.associations.OPlayer }
+            { association: user.associations.XPlayer },
+            { association: user.associations.OPlayer }
           ]
         }
       }
     }
   });
-  return User;
+  return user;
 };

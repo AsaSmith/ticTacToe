@@ -1,4 +1,4 @@
-var gameBoard = [ ['x', '', 'b'],
+var gameboard = [ ['x', '', 'b'],
                   ['o', 'a', 'o'],
                   ['b', '', 'x'],
                 ];
@@ -16,23 +16,23 @@ var gameBoard = [ ['x', '', 'b'],
 //function shoiuld add computer move to array
 //
 
-function winningBoard(gameBoard) {
-  for (var i = 0; i < winningBoard.length; i++) {
-    if ((gameBoard[0][0] === gameBoard[0][1]) && (gameBoard[0][0] === gameBoard[0][2])) {
+function winningboard(gameboard) {
+  for (var i = 0; i < winningboard.length; i++) {
+    if ((gameboard[0][0] === gameboard[0][1]) && (gameboard[0][0] === gameboard[0][2])) {
     console.log('WINNER');
-  } else if ((gameBoard[0][0] === gameBoard[1][0]) && (gameBoard[0][0] === gameBoard[2][0])){
+  } else if ((gameboard[0][0] === gameboard[1][0]) && (gameboard[0][0] === gameboard[2][0])){
     console.log('WINNER');
-  } else if ((gameBoard[0][1] === gameBoard[1][1]) && (gameBoard[0][1] === gameBoard[2][1])){
+  } else if ((gameboard[0][1] === gameboard[1][1]) && (gameboard[0][1] === gameboard[2][1])){
     console.log('WINNER');
-  }else if ((gameBoard[0][2] === gameBoard[1][2]) && (gameBoard[0][2] === gameBoard[2][2])){
+  }else if ((gameboard[0][2] === gameboard[1][2]) && (gameboard[0][2] === gameboard[2][2])){
     console.log('WINNER');
-  } else if ((gameBoard[1][0] === gameBoard[1][1]) && (gameBoard[1][0] === gameBoard[1][2])){
+  } else if ((gameboard[1][0] === gameboard[1][1]) && (gameboard[1][0] === gameboard[1][2])){
     console.log('WINNER');
-  } else if ((gameBoard[2][0] === gameBoard[2][1]) && (gameBoard[2][0] === gameBoard[2][2])){
+  } else if ((gameboard[2][0] === gameboard[2][1]) && (gameboard[2][0] === gameboard[2][2])){
     console.log('WINNER');
-  } else if ((gameBoard[0][0] === gameBoard[1][1]) && (gameBoard[0][0] === gameBoard[2][2])){
+  } else if ((gameboard[0][0] === gameboard[1][1]) && (gameboard[0][0] === gameboard[2][2])){
     console.log('WINNER');
-  } else if ((gameBoard[0][2] === gameBoard[1][1]) && (gameBoard[0][2] === gameBoard[2][0])){
+  } else if ((gameboard[0][2] === gameboard[1][1]) && (gameboard[0][2] === gameboard[2][0])){
     console.log('WINNER');
   }  else {
     console.log("Not a winner.");
@@ -40,4 +40,4 @@ function winningBoard(gameBoard) {
 }
 }
 
-console.log(winningBoard(gameBoard));
+console.log(winningboard(gameboard));

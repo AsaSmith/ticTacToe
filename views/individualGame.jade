@@ -7,7 +7,7 @@ block content
   h1 Game ##{board.id}
   tic-tac-toe-board(the-board="#{JSON.stringify(board.board)}")
 
-  if currentUser && board.isOpenForJoining()
+  if currentuser && board.isOpenForJoining()
     //- render buttons or something
   else
     p Game is full

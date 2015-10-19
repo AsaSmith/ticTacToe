@@ -12,11 +12,11 @@ block content
       
         
         .form-group(ng-class="{ 'has-error': register.username.$invalid && register.username.$dirty}")
-          label.control-label Username
+          label.control-label username
           input.form-control(type="text", name="username", required, ng-model="username", unique-username)
         
           .alert.alert-warning(ng-if="register.username.$error.required")
-            p Username is required
+            p username is required
         
         .form-group(ng-class="{ 'has-error': register.email.$invalid && register.email.$dirty}")
             label.control-label Email

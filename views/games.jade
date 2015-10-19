@@ -20,14 +20,14 @@ block content
         a(href="/games/#{board.id}") Game ##{board.id}
   
   p All the boards
-  div(ng-controller="BoardsController as boards")
+  div(ng-controller="boardsController as boards")
     ul
       li(ng-repeat="board in boards.boards track by board.id")
-        a(ng-click="boards.selectBoard(board)") Game {{ '#' + board.id }}
+        a(ng-click="boards.selectboard(board)") Game {{ '#' + board.id }}
   
-    div(ng-show="boards.selectedBoard")
-      p Game {{ '#' + boards.selectedBoard.id }}
-      tic-tac-toe-board(the-board="boards.selectedBoard.board")
+    div(ng-show="boards.selectedboard")
+      p Game {{ '#' + boards.selectedboard.id }}
+      tic-tac-toe-board(the-board="boards.selectedboard.board")
   
   if errors
     p.text-danger= errors.message
